@@ -48,7 +48,7 @@ public class GitlabContainer extends GenericContainer<GitlabContainer> {
 
     public void initAPIToken() throws IOException, InterruptedException {
         String createToken = String.format(
-                "token = User.find_by_username('root').personal_access_tokens.create(scopes: [:api, :sudo], name: 'Automation Token'); token.set_token('%s'); token.save",
+                "token = User.find_by_username('root').personal_access_tokens.create(scopes: [:api, :sudo, :read_user, :read_api, :read_repository, :write_repository], name: 'Automation Token'); token.set_token('%s'); token.save",
                 GITLAB_API_TOKEN
         );
         ExecResult result = execInContainer("gitlab-rails", "runner", createToken);
